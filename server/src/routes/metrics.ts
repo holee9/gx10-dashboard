@@ -3,6 +3,8 @@ import { getCpuInfo, getMemoryInfo, getDiskInfo } from '../services/system.js';
 import { getGpuInfo } from '../services/nvidia.js';
 import { getOllamaStatus, getOllamaModels, getOllamaRunningModels } from '../services/ollama.js';
 import { getVisionStatus, getVisionModels } from '../services/vision.js';
+import { getStorageStatus } from '../services/storage.js';
+import { getNetworkStatus } from '../services/network.js';
 
 const router = Router();
 
@@ -128,6 +130,32 @@ router.get('/vision/models', async (_req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       error: 'Failed to get Vision models',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/storage - Storage status (SSD, external disks)
+router.get('/storage', async (_req: Request, res: Response) => {
+  try {
+    const storage = await getStorageStatus();
+    res.json(storage);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get storage status',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/network - Network interfaces status
+router.get('/network', async (_req: Request, res: Response) => {
+  try {
+    const network = await getNetworkStatus();
+    res.json(network);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get network status',
       message: error instanceof Error ? error.message : 'Unknown error',
     });
   }

@@ -3,6 +3,8 @@ import { GpuCard } from './GpuCard';
 import { BrainCard } from './BrainCard';
 import { OllamaCard } from './OllamaCard';
 import { VisionCard } from './VisionCard';
+import { StorageCard } from './StorageCard';
+import { NetworkCard } from './NetworkCard';
 import { MetricsChart } from './MetricsChart';
 import { useStore } from '../store/useStore';
 
@@ -62,11 +64,16 @@ export function Dashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - System & GPU */}
+          {/* Left Column - System, GPU & Metrics */}
           <div className="lg:col-span-2 space-y-6">
             <SystemCard />
             <GpuCard />
             <MetricsChart />
+            {/* Storage & Network Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <StorageCard />
+              <NetworkCard />
+            </div>
           </div>
 
           {/* Right Column - Brain & AI Backend */}
