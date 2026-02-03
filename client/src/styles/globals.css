@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0d1117;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+@layer components {
+  .card {
+    @apply bg-gx-card border border-gx-border rounded-xl p-4 shadow-lg;
+  }
+
+  .card-header {
+    @apply flex items-center gap-2 mb-4 text-gray-400 text-sm font-medium uppercase tracking-wider;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold text-white;
+  }
+
+  .stat-label {
+    @apply text-sm text-gray-500;
+  }
+
+  .progress-bar {
+    @apply h-2 bg-gx-border rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-300;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-gx-cyan text-gx-dark hover:bg-gx-cyan/80;
+  }
+
+  .btn-secondary {
+    @apply bg-gx-border text-white hover:bg-gx-border/80;
+  }
+
+  .badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-green {
+    @apply bg-gx-green/20 text-gx-green;
+  }
+
+  .badge-yellow {
+    @apply bg-gx-yellow/20 text-gx-yellow;
+  }
+
+  .badge-red {
+    @apply bg-gx-red/20 text-gx-red;
+  }
+
+  .badge-cyan {
+    @apply bg-gx-cyan/20 text-gx-cyan;
+  }
+
+  .badge-purple {
+    @apply bg-gx-purple/20 text-gx-purple;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
