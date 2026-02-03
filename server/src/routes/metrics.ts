@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { getCpuInfo, getMemoryInfo, getDiskInfo } from '../services/system.js';
 import { getGpuInfo } from '../services/nvidia.js';
 import { getOllamaStatus, getOllamaModels, getOllamaRunningModels } from '../services/ollama.js';
+import { getVisionStatus, getVisionModels } from '../services/vision.js';
 
 const router = Router();
 
@@ -102,6 +103,32 @@ router.get('/ollama/health', async (_req: Request, res: Response) => {
     res.status(500).json({
       healthy: false,
       error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/vision - Vision Brain status
+router.get('/vision', async (_req: Request, res: Response) => {
+  try {
+    const status = await getVisionStatus();
+    res.json(status);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get Vision status',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/vision/models - Vision models
+router.get('/vision/models', async (_req: Request, res: Response) => {
+  try {
+    const models = await getVisionModels();
+    res.json({ models });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get Vision models',
+      message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 });

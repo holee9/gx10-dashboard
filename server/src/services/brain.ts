@@ -55,11 +55,13 @@ export async function getBrainStatus(): Promise<BrainStatus> {
   try {
     const content = await fs.readFile(BRAIN_STATUS_FILE, 'utf-8');
     const data = JSON.parse(content);
-    const startedAt = new Date(data.started_at || Date.now());
+    // Support both 'brain' and 'active' field names
+    const activeBrain = data.brain || data.active || 'code';
+    const startedAt = new Date(data.since || data.started_at || Date.now());
     const uptimeSeconds = Math.floor((Date.now() - startedAt.getTime()) / 1000);
 
     return {
-      active: data.active || 'code',
+      active: activeBrain,
       started_at: startedAt.toISOString(),
       uptime_seconds: uptimeSeconds,
     };

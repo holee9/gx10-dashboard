@@ -2,11 +2,13 @@ import { SystemCard } from './SystemCard';
 import { GpuCard } from './GpuCard';
 import { BrainCard } from './BrainCard';
 import { OllamaCard } from './OllamaCard';
+import { VisionCard } from './VisionCard';
 import { MetricsChart } from './MetricsChart';
 import { useStore } from '../store/useStore';
 
 export function Dashboard() {
-  const { connected, lastUpdate, error } = useStore();
+  const { connected, lastUpdate, error, status } = useStore();
+  const currentBrain = status?.brain?.active || 'code';
 
   return (
     <div className="min-h-screen bg-gx-dark">
@@ -67,10 +69,10 @@ export function Dashboard() {
             <MetricsChart />
           </div>
 
-          {/* Right Column - Brain & Ollama */}
+          {/* Right Column - Brain & AI Backend */}
           <div className="space-y-6">
             <BrainCard />
-            <OllamaCard />
+            {currentBrain === 'code' ? <OllamaCard /> : <VisionCard />}
           </div>
         </div>
       </main>
