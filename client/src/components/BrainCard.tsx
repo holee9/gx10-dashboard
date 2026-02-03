@@ -64,25 +64,25 @@ export function BrainCard() {
         </svg>
         <span>Brain Mode</span>
         <span className="ml-auto text-xs text-gray-500">
-          Active for {formatUptime(brainUptime)}
+          {formatUptime(brainUptime)}
         </span>
       </div>
 
-      {/* Current Mode Display */}
-      <div className="flex items-center justify-center mb-6">
+      {/* Current Mode Display - Compact */}
+      <div className="flex items-center justify-center mb-4">
         <div className="text-center">
-          <div className={`text-5xl mb-2 ${currentMode === 'code' ? 'text-gx-cyan' : 'text-gx-purple'}`}>
+          <div className={`text-4xl mb-1 ${currentMode === 'code' ? 'text-gx-cyan' : 'text-gx-purple'}`}>
             {currentMode === 'code' ? '{ }' : '👁️'}
           </div>
-          <div className="text-2xl font-bold text-white capitalize">{currentMode}</div>
-          <div className="text-sm text-gray-400">
+          <div className="text-xl font-bold text-white capitalize">{currentMode}</div>
+          <div className="text-xs text-gray-400">
             {currentMode === 'code' ? 'Qwen 2.5 Coder' : 'Vision Model'}
           </div>
         </div>
       </div>
 
       {/* Mode Switch Buttons */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2">
         <button
           onClick={() => handleSwitch('code')}
           disabled={switching || currentMode === 'code'}
@@ -93,16 +93,16 @@ export function BrainCard() {
           }`}
         >
           {switching && currentMode !== 'code' ? (
-            <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <span className="flex items-center justify-center gap-1">
+              <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              Switching...
+              ...
             </span>
           ) : (
             <>
-              <span className="mr-2">{ }</span>
+              <span className="mr-1">{ }</span>
               Code
             </>
           )}
@@ -118,16 +118,16 @@ export function BrainCard() {
           }`}
         >
           {switching && currentMode !== 'vision' ? (
-            <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <span className="flex items-center justify-center gap-1">
+              <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              Switching...
+              ...
             </span>
           ) : (
             <>
-              <span className="mr-2">👁️</span>
+              <span className="mr-1">👁️</span>
               Vision
             </>
           )}
@@ -136,21 +136,21 @@ export function BrainCard() {
 
       {/* Error Display */}
       {error && (
-        <div className="mt-4 p-3 bg-gx-red/10 border border-gx-red/30 rounded-lg text-gx-red text-sm">
+        <div className="mt-3 p-2 bg-gx-red/10 border border-gx-red/30 rounded text-gx-red text-xs">
           {error}
         </div>
       )}
 
       {/* Script Status */}
       {status?.brain.scripts_available && (
-        <div className="mt-4 pt-4 border-t border-gx-border">
-          <div className="flex items-center gap-4 text-xs text-gray-500">
+        <div className="mt-3 pt-2 border-t border-gx-border">
+          <div className="flex items-center gap-3 text-xs text-gray-500">
             <div className="flex items-center gap-1">
-              <span className={`w-2 h-2 rounded-full ${status.brain.scripts_available.statusScript ? 'bg-gx-green' : 'bg-gx-red'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${status.brain.scripts_available.statusScript ? 'bg-gx-green' : 'bg-gx-red'}`} />
               status.sh
             </div>
             <div className="flex items-center gap-1">
-              <span className={`w-2 h-2 rounded-full ${status.brain.scripts_available.switchScript ? 'bg-gx-green' : 'bg-gx-red'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${status.brain.scripts_available.switchScript ? 'bg-gx-green' : 'bg-gx-red'}`} />
               switch.sh
             </div>
           </div>

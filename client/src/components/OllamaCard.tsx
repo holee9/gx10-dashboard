@@ -36,7 +36,7 @@ export function OllamaCard() {
     };
 
     fetchOllamaStatus();
-    const interval = setInterval(fetchOllamaStatus, 10000); // Refresh every 10 seconds
+    const interval = setInterval(fetchOllamaStatus, 10000);
 
     return () => clearInterval(interval);
   }, []);
@@ -56,63 +56,63 @@ export function OllamaCard() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-8">
-          <svg className="animate-spin h-8 w-8 text-gx-cyan" viewBox="0 0 24 24">
+        <div className="flex items-center justify-center py-6">
+          <svg className="animate-spin h-6 w-6 text-gx-cyan" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
         </div>
       ) : !isRunning ? (
-        <div className="text-center py-8 text-gray-500">
-          <svg className="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="text-center py-6 text-gray-500">
+          <svg className="w-10 h-10 mx-auto mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p>Ollama is not running</p>
-          <p className="text-sm">Start with: ollama serve</p>
+          <p className="text-sm">Ollama is not running</p>
+          <p className="text-xs">Start with: ollama serve</p>
         </div>
       ) : (
         <>
           {/* Version */}
           {ollamaStatus?.version && (
-            <div className="mb-4 flex items-center gap-2">
-              <span className="text-sm text-gray-400">Version</span>
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-xs text-gray-400">Version</span>
               <span className="badge badge-cyan">{ollamaStatus.version}</span>
             </div>
           )}
 
           {/* Loaded Models */}
-          <div className="mb-4">
-            <div className="text-sm text-gray-400 mb-2">Loaded Models</div>
+          <div className="mb-3">
+            <div className="text-xs text-gray-400 mb-1">Loaded Models</div>
             {modelsLoaded.length > 0 ? (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {modelsLoaded.map((model) => (
                   <div
                     key={model}
-                    className="flex items-center gap-2 p-2 bg-gx-dark rounded-lg"
+                    className="flex items-center gap-2 p-1.5 bg-gx-dark rounded"
                   >
                     <span className="w-2 h-2 rounded-full bg-gx-green animate-pulse" />
-                    <span className="text-white font-medium">{model}</span>
+                    <span className="text-white text-sm font-medium">{model}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-gray-500 text-sm">No models currently loaded</div>
+              <div className="text-gray-500 text-xs">No models currently loaded</div>
             )}
           </div>
 
           {/* Available Models */}
           {ollamaStatus?.models && ollamaStatus.models.length > 0 && (
             <div>
-              <div className="text-sm text-gray-400 mb-2">
-                Available Models ({ollamaStatus.models.length})
+              <div className="text-xs text-gray-400 mb-1">
+                Available ({ollamaStatus.models.length})
               </div>
-              <div className="max-h-48 overflow-y-auto space-y-2">
+              <div className="max-h-32 overflow-y-auto space-y-1">
                 {ollamaStatus.models.map((model) => {
                   const isLoaded = modelsLoaded.includes(model.name);
                   return (
                     <div
                       key={model.name}
-                      className="flex items-center justify-between p-2 bg-gx-dark rounded-lg"
+                      className="flex items-center justify-between p-1.5 bg-gx-dark rounded"
                     >
                       <div className="flex items-center gap-2">
                         <span
@@ -120,7 +120,7 @@ export function OllamaCard() {
                             isLoaded ? 'bg-gx-green' : 'bg-gray-600'
                           }`}
                         />
-                        <span className={isLoaded ? 'text-white' : 'text-gray-400'}>
+                        <span className={`text-sm ${isLoaded ? 'text-white' : 'text-gray-400'}`}>
                           {model.name}
                         </span>
                       </div>

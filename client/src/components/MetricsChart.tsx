@@ -48,13 +48,12 @@ export function MetricsChart() {
           </svg>
           <span>Resource Usage Over Time</span>
         </div>
-        <div className="flex items-center justify-center h-48 text-gray-500">
+        <div className="flex items-center justify-center h-28 text-gray-500">
           <div className="text-center">
-            <svg className="w-12 h-12 mx-auto mb-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-6 h-6 mx-auto mb-1 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
-            <p>Collecting data...</p>
-            <p className="text-sm">Chart will appear shortly</p>
+            <p className="text-xs">Collecting data...</p>
           </div>
         </div>
       </div>
@@ -73,9 +72,9 @@ export function MetricsChart() {
         <span className="ml-auto text-xs text-gray-500">Last 2 minutes</span>
       </div>
 
-      <div className="h-64">
+      <div className="h-44">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData}>
+          <LineChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
             <XAxis
               dataKey="time"
               stroke="#6e7681"
@@ -101,9 +100,9 @@ export function MetricsChart() {
               formatter={(value: number) => [`${value.toFixed(1)}%`, '']}
             />
             <Legend
-              wrapperStyle={{ paddingTop: '10px' }}
+              wrapperStyle={{ paddingTop: '2px', fontSize: '10px' }}
               formatter={(value) => (
-                <span style={{ color: '#8b949e' }}>{value}</span>
+                <span style={{ color: '#8b949e', fontSize: '10px' }}>{value}</span>
               )}
             />
             <Line
