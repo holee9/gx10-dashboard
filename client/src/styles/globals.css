@@ -110,6 +110,27 @@ body {
 
 /* Custom scrollbar - Now defined in themes.css */
 
+/* Theme-aware gray color overrides */
+/* These make Tailwind gray colors responsive to theme */
+@layer utilities {
+  /* Text colors */
+  .text-gray-300 { color: var(--text-primary); }
+  .text-gray-400 { color: var(--text-secondary); }
+  .text-gray-500 { color: var(--text-muted); }
+  .text-gray-600 { color: var(--text-muted); }
+  .text-white { color: var(--text-primary); }
+
+  /* Background colors */
+  .bg-gray-600 { background-color: var(--border-color); }
+  .bg-gray-700 { background-color: var(--bg-card-hover); }
+  .bg-gray-800 { background-color: var(--bg-card); }
+  .bg-gray-900 { background-color: var(--bg-primary); }
+
+  /* Hover states */
+  .hover\:text-white:hover { color: var(--text-primary); }
+  .hover\:bg-gray-700:hover { background-color: var(--bg-card-hover); }
+}
+
 /* Mobile responsive utilities */
 @media (max-width: 768px) {
   .hide-mobile {

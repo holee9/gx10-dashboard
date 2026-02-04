@@ -9,15 +9,11 @@ import type { FullStatus } from './types';
 type ViewType = 'dashboard' | 'settings';
 
 // Initialize theme before React renders to prevent flash
+// Force dark theme for GX10 system monitoring dashboard
 function initializeTheme() {
-  const stored = localStorage.getItem('gx10-theme');
-  if (stored === 'dark' || stored === 'light') {
-    document.documentElement.setAttribute('data-theme', stored);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
+  // Always use dark theme - migrate any old 'light' setting
+  localStorage.setItem('gx10-theme', 'dark');
+  document.documentElement.setAttribute('data-theme', 'dark');
 }
 
 // Run immediately

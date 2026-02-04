@@ -176,7 +176,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
               {/* Refresh Button */}
               <button
                 onClick={handleRefresh}
-                className="p-1.5 rounded-lg hover:bg-gx-border/50 text-gray-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg hover:bg-gx-border/50 text-themed-secondary hover:text-themed-primary transition-colors"
                 aria-label="Refresh data (R)"
                 title="Refresh data (R)"
               >
@@ -191,7 +191,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
                 className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors hidden sm:block ${
                   showAdvanced
                     ? 'bg-gx-purple/20 text-gx-purple'
-                    : 'text-gray-400 hover:text-white hover:bg-gx-border/50'
+                    : 'text-themed-secondary hover:text-themed-primary hover:bg-gx-border/50'
                 }`}
                 aria-label="Toggle advanced view (A)"
                 title="Toggle advanced view (A)"
@@ -209,7 +209,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
               {onOpenSettings && (
                 <button
                   onClick={onOpenSettings}
-                  className="p-1.5 rounded-lg hover:bg-gx-border/50 text-gray-400 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-gx-border/50 text-themed-secondary hover:text-themed-primary transition-colors"
                   aria-label="Open settings (S)"
                   title="Open settings (S)"
                 >
@@ -226,7 +226,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
                   const event = new KeyboardEvent('keydown', { key: '?' });
                   document.dispatchEvent(event);
                 }}
-                className="p-1.5 rounded-lg hover:bg-gx-border/50 text-gray-400 hover:text-white transition-colors hidden sm:block"
+                className="p-1.5 rounded-lg hover:bg-gx-border/50 text-themed-secondary hover:text-themed-primary transition-colors hidden sm:block"
                 aria-label="Keyboard shortcuts (?)"
                 title="Keyboard shortcuts (?)"
               >
