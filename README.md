@@ -2,7 +2,7 @@
 
 GX10 시스템의 상태를 웹에서 실시간으로 모니터링할 수 있는 대시보드입니다.
 
-![Dashboard Preview](docs/preview.png)
+![Dashboard Preview]((http://100.78.1.7:9000/))
 
 ## v2.0 New Features
 
