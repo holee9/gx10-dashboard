@@ -6,6 +6,7 @@ import { getBrainStatus } from './services/brain.js';
 import { getOllamaRunningModels } from './services/ollama.js';
 import { checkAlerts, AlertCheck } from './services/alerts.js';
 import { getConfig } from './config.js';
+import { getNetworkThroughput } from './services/networkThroughput.js';
 
 interface MetricsData {
   timestamp: string;
@@ -23,6 +24,10 @@ interface MetricsData {
     temperature: number;
     power_draw: number;
   } | null;
+  network: {
+    rxMbps: number;
+    txMbps: number;
+  };
   brain: {
     active: string;
   };
@@ -92,12 +97,13 @@ async function sendMetrics(ws: WebSocket): Promise<void> {
 }
 
 async function collectMetrics(): Promise<MetricsData> {
-  const [cpu, memory, gpu, brain, ollamaModels] = await Promise.all([
+  const [cpu, memory, gpu, brain, ollamaModels, network] = await Promise.all([
     getCpuInfo(),
     getMemoryInfo(),
     getGpuInfo(),
     getBrainStatus(),
     getOllamaRunningModels(),
+    getNetworkThroughput(),
   ]);
 
   return {
@@ -118,6 +124,10 @@ async function collectMetrics(): Promise<MetricsData> {
           power_draw: gpu.power_draw,
         }
       : null,
+    network: {
+      rxMbps: network.rxMbps,
+      txMbps: network.txMbps,
+    },
     brain: {
       active: brain.active,
     },

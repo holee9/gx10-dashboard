@@ -6,6 +6,8 @@ interface MetricsHistory {
   cpu: number;
   memory: number;
   gpu: number | null;
+  networkRx: number;
+  networkTx: number;
 }
 
 // IndexedDB Configuration
@@ -351,6 +353,8 @@ export const useStore = create<DashboardStore>((set, get) => ({
         cpu: metrics.cpu.usage,
         memory: metrics.memory.percentage,
         gpu: metrics.gpu?.utilization ?? null,
+        networkRx: metrics.network?.rxMbps ?? 0,
+        networkTx: metrics.network?.txMbps ?? 0,
       };
 
       const history = [...state.metricsHistory, newHistory].slice(-MAX_HISTORY);

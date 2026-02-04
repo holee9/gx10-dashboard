@@ -111,6 +111,10 @@ export interface MetricsData {
     temperature: number;
     power_draw: number;
   } | null;
+  network: {
+    rxMbps: number;
+    txMbps: number;
+  };
   brain: {
     active: string;
   };
