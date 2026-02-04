@@ -5,16 +5,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Static accent colors - explicit values allow opacity modifiers
-        'gx-cyan': '#00d9ff',
-        'gx-green': '#3fb950',
-        'gx-yellow': '#d29922',
-        'gx-red': '#f85149',
-        'gx-purple': '#a371f7',
-        // Legacy support - explicit values for compatibility
-        'gx-dark': '#0d1117',
-        'gx-card': '#161b22',
-        'gx-border': '#30363d',
+        // Static accent colors - muted for deep dark theme
+        'gx-cyan': '#00b8d9',
+        'gx-green': '#2da44e',
+        'gx-yellow': '#bf8700',
+        'gx-red': '#e5534b',
+        'gx-purple': '#8b5cf6',
+        // Deep dark theme colors
+        'gx-dark': '#000000',
+        'gx-card': '#0a0d12',
+        'gx-border': '#1e2228',
       },
       backgroundColor: {
         'themed-primary': 'var(--bg-primary)',
