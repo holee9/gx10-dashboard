@@ -12,7 +12,7 @@ interface MetricsHistory {
 const DB_NAME = 'gx10-metrics';
 const DB_VERSION = 1;
 const STORE_NAME = 'metrics';
-const MAX_RECORDS = 43200; // 24 hours at 2-second intervals
+const MAX_RECORDS = 8640; // 24 hours at 10-second intervals (optimized)
 
 interface MetricsRecord {
   id?: number;
@@ -241,7 +241,7 @@ interface DashboardStore {
   setPersistenceEnabled: (enabled: boolean) => void;
 }
 
-const MAX_HISTORY = 60; // 2 minutes of data at 2-second intervals
+const MAX_HISTORY = 30; // 5 minutes of data at 10-second intervals (optimized)
 
 // Request notification permission on load
 requestNotificationPermission();

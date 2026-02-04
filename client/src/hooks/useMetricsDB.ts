@@ -19,8 +19,8 @@ export interface MetricsStats {
   avgGpu: number | null;
 }
 
-// Store up to 24 hours of data (1 record per 2 seconds = 43200 records)
-const MAX_RECORDS = 43200;
+// Store up to 24 hours of data (1 record per 10 seconds = 8640 records, optimized)
+const MAX_RECORDS = 8640;
 const DB_NAME = 'gx10-metrics';
 const DB_VERSION = 1;
 const STORE_NAME = 'metrics';

@@ -5,6 +5,7 @@ import { getGpuInfo } from './services/nvidia.js';
 import { getBrainStatus } from './services/brain.js';
 import { getOllamaRunningModels } from './services/ollama.js';
 import { checkAlerts, AlertCheck } from './services/alerts.js';
+import { getConfig } from './config.js';
 
 interface MetricsData {
   timestamp: string;
@@ -53,7 +54,11 @@ export function setupWebSocket(server: Server): WebSocketServer {
     });
   });
 
-  // Broadcast metrics every 2 seconds
+  // Broadcast metrics based on configured interval (default: 10 seconds)
+  const config = getConfig();
+  const updateInterval = config.server.updateInterval;
+  console.log(`WebSocket update interval: ${updateInterval}ms`);
+
   const intervalId = setInterval(async () => {
     if (clients.size === 0) return;
 
@@ -66,7 +71,7 @@ export function setupWebSocket(server: Server): WebSocketServer {
         client.send(message);
       }
     });
-  }, 2000);
+  }, updateInterval);
 
   // Cleanup on server close
   wss.on('close', () => {

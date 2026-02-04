@@ -17,7 +17,8 @@ export interface DashboardConfig {
 const defaultConfig: DashboardConfig = {
   server: {
     port: 9000,
-    updateInterval: 2000,
+    // 10 seconds interval for low resource usage (occasional monitoring)
+    updateInterval: 10000,
   },
   alerts: {
     enabled: true,
@@ -45,7 +46,8 @@ function loadConfigFromEnv(): DashboardConfig {
 
   if (process.env.UPDATE_INTERVAL) {
     const interval = parseInt(process.env.UPDATE_INTERVAL, 10);
-    if (!isNaN(interval) && interval >= 500) {
+    // Minimum 1 second for resource optimization
+    if (!isNaN(interval) && interval >= 1000) {
       config.server.updateInterval = interval;
     }
   }

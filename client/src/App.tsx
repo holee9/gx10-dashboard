@@ -43,8 +43,8 @@ function App() {
 
     fetchInitialStatus();
 
-    // Refresh full status every 30 seconds (for data not in real-time metrics)
-    const interval = setInterval(fetchInitialStatus, 30000);
+    // Refresh full status every 60 seconds (optimized for occasional monitoring)
+    const interval = setInterval(fetchInitialStatus, 60000);
 
     return () => clearInterval(interval);
   }, [setStatus, setError]);
