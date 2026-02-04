@@ -1,19 +1,5 @@
 import { useStore } from '../store/useStore';
 
-function formatBytes(bytes: number | null): string {
-  if (bytes === null) return 'N/A';
-  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-  let value = bytes;
-  let unitIndex = 0;
-
-  while (value >= 1024 && unitIndex < units.length - 1) {
-    value /= 1024;
-    unitIndex++;
-  }
-
-  return `${value.toFixed(1)} ${units[unitIndex]}`;
-}
-
 function getUsageColor(percentage: number): string {
   if (percentage >= 90) return 'bg-gx-red';
   if (percentage >= 70) return 'bg-gx-yellow';
@@ -49,14 +35,8 @@ export function GpuCard() {
   }
 
   const utilization = gpuMetrics?.utilization ?? gpu.utilization;
-  const memoryUsed = gpuMetrics?.memory_used ?? gpu.memory_used;
   const temperature = gpuMetrics?.temperature ?? gpu.temperature;
   const powerDraw = gpuMetrics?.power_draw ?? gpu.power_draw;
-
-  const memoryPercentage =
-    memoryUsed !== null && gpu.memory_total !== null
-      ? (memoryUsed / gpu.memory_total) * 100
-      : null;
 
   return (
     <div className="card h-full">
@@ -71,7 +51,7 @@ export function GpuCard() {
       </div>
 
       {/* Utilization */}
-      <div className="mb-2">
+      <div className="mb-3">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs text-gray-400">Utilization</span>
           <span className="text-white font-bold">{utilization}%</span>
@@ -80,24 +60,6 @@ export function GpuCard() {
           <div
             className={`h-full transition-all duration-300 ${getUsageColor(utilization)}`}
             style={{ width: `${Math.min(utilization, 100)}%` }}
-          />
-        </div>
-      </div>
-
-      {/* VRAM */}
-      <div className="mb-3">
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-xs text-gray-400">
-            VRAM {gpu.memory_total !== null && `(${formatBytes(gpu.memory_total)})`}
-          </span>
-          <span className="text-white font-bold">
-            {memoryPercentage !== null ? `${memoryPercentage.toFixed(1)}%` : 'N/A'}
-          </span>
-        </div>
-        <div className="h-2 bg-gx-border rounded-full overflow-hidden">
-          <div
-            className={`h-full transition-all duration-300 ${memoryPercentage !== null ? getUsageColor(memoryPercentage) : 'bg-gray-600'}`}
-            style={{ width: `${memoryPercentage !== null ? Math.min(memoryPercentage, 100) : 0}%` }}
           />
         </div>
       </div>
