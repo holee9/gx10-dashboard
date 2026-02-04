@@ -7,6 +7,10 @@ import { fileURLToPath } from 'url';
 import statusRoutes from './routes/status.js';
 import brainRoutes from './routes/brain.js';
 import metricsRoutes from './routes/metrics.js';
+import alertsRoutes from './routes/alerts.js';
+import settingsRoutes from './routes/settings.js';
+import docsRoutes from './routes/docs.js';
+import prometheusRoutes from './routes/prometheus.js';
 import { setupWebSocket } from './websocket.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,11 +23,17 @@ const PORT = process.env.PORT || 9000;
 app.use(cors());
 app.use(express.json());
 
+// Prometheus metrics endpoint (root level for standard scraping)
+app.use('/metrics', prometheusRoutes);
+
 // API Routes
 app.use('/api/status', statusRoutes);
 app.use('/api/brain', brainRoutes);
 app.use('/api/metrics', metricsRoutes);
 app.use('/api/ollama', metricsRoutes);
+app.use('/api/alerts', alertsRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/docs', docsRoutes);
 
 // Health check endpoint
 app.get('/api/health', (_req, res) => {
@@ -64,6 +74,11 @@ app.get('*', (req, res, next) => {
             <pre><code>cd client && npm install && npm run dev</code></pre>
             <p>Or build for production:</p>
             <pre><code>npm run build:client</code></pre>
+            <h2>API Documentation</h2>
+            <ul>
+              <li><a href="/api/docs">/api/docs</a> - API documentation (JSON)</li>
+              <li><a href="/api/docs/openapi">/api/docs/openapi</a> - OpenAPI 3.0 specification</li>
+            </ul>
             <h2>API Endpoints</h2>
             <ul>
               <li><a href="/api/health">/api/health</a> - Health check</li>
@@ -71,6 +86,8 @@ app.get('*', (req, res, next) => {
               <li><a href="/api/brain">/api/brain</a> - Brain status</li>
               <li><a href="/api/metrics">/api/metrics</a> - Quick metrics</li>
               <li><a href="/api/ollama">/api/ollama</a> - Ollama status</li>
+              <li><a href="/api/alerts/thresholds">/api/alerts/thresholds</a> - Alert thresholds</li>
+              <li><a href="/api/settings">/api/settings</a> - Dashboard settings</li>
             </ul>
           </body>
         </html>

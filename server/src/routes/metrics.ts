@@ -5,6 +5,13 @@ import { getOllamaStatus, getOllamaModels, getOllamaRunningModels } from '../ser
 import { getVisionStatus, getVisionModels } from '../services/vision.js';
 import { getStorageStatus } from '../services/storage.js';
 import { getNetworkStatus } from '../services/network.js';
+import {
+  getGpuProcesses,
+  getCpuCores,
+  getDetailedMemory,
+  getTopProcesses,
+  getTopProcessesByMemory,
+} from '../services/processes.js';
 
 const router = Router();
 
@@ -156,6 +163,73 @@ router.get('/network', async (_req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       error: 'Failed to get network status',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/cpu/cores - Per-core CPU usage
+router.get('/cpu/cores', async (_req: Request, res: Response) => {
+  try {
+    const cores = await getCpuCores();
+    res.json({ cores });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get CPU core info',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/metrics/memory/detailed - Detailed memory info
+router.get('/memory/detailed', async (_req: Request, res: Response) => {
+  try {
+    const memory = await getDetailedMemory();
+    res.json(memory);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get detailed memory info',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/processes/gpu - GPU process list
+router.get('/processes/gpu', async (_req: Request, res: Response) => {
+  try {
+    const processes = await getGpuProcesses();
+    res.json({ processes });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get GPU processes',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/processes/cpu - Top CPU processes
+router.get('/processes/cpu', async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string, 10) || 10;
+    const processes = await getTopProcesses(limit);
+    res.json({ processes });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get top CPU processes',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/processes/memory - Top memory processes
+router.get('/processes/memory', async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string, 10) || 10;
+    const processes = await getTopProcessesByMemory(limit);
+    res.json({ processes });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to get top memory processes',
       message: error instanceof Error ? error.message : 'Unknown error',
     });
   }

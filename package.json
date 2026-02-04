@@ -1,6 +1,6 @@
 {
   "name": "gx10-dashboard",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GX10 System Monitoring Web Dashboard",
   "private": true,
   "scripts": {

@@ -4,6 +4,7 @@ import { getCpuInfo, getMemoryInfo } from './services/system.js';
 import { getGpuInfo } from './services/nvidia.js';
 import { getBrainStatus } from './services/brain.js';
 import { getOllamaRunningModels } from './services/ollama.js';
+import { checkAlerts, AlertCheck } from './services/alerts.js';
 
 interface MetricsData {
   timestamp: string;
@@ -57,7 +58,8 @@ export function setupWebSocket(server: Server): WebSocketServer {
     if (clients.size === 0) return;
 
     const metrics = await collectMetrics();
-    const message = JSON.stringify({ type: 'metrics', data: metrics });
+    const alerts: AlertCheck[] = checkAlerts(metrics);
+    const message = JSON.stringify({ type: 'metrics', data: metrics, alerts });
 
     clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
@@ -77,7 +79,8 @@ export function setupWebSocket(server: Server): WebSocketServer {
 async function sendMetrics(ws: WebSocket): Promise<void> {
   try {
     const metrics = await collectMetrics();
-    ws.send(JSON.stringify({ type: 'metrics', data: metrics }));
+    const alerts: AlertCheck[] = checkAlerts(metrics);
+    ws.send(JSON.stringify({ type: 'metrics', data: metrics, alerts }));
   } catch (error) {
     console.error('Failed to send initial metrics:', error);
   }
